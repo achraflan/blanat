@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="blanatApp.deal.home.title">Deals</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-deal" [routerLink]="['/deal/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-deal" [routerLink]="['/deal/new']" *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="blanatApp.deal.home.createLabel">
             Create a new Deal
@@ -18,98 +18,61 @@
         <span jhiTranslate="blanatApp.deal.home.notFound">No deals found</span>
     </div>
 
-    <div class="table-responsive" id="entities" *ngIf="deals && deals.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="title"><span jhiTranslate="blanatApp.deal.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="blanatApp.deal.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="type"><span jhiTranslate="blanatApp.deal.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="url"><span jhiTranslate="blanatApp.deal.url">Url</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="image"><span jhiTranslate="blanatApp.deal.image">Image</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="price"><span jhiTranslate="blanatApp.deal.price">Price</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="priceNormal"><span jhiTranslate="blanatApp.deal.priceNormal">Price Normal</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="priceShipping"><span jhiTranslate="blanatApp.deal.priceShipping">Price Shipping</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="coupon"><span jhiTranslate="blanatApp.deal.coupon">Coupon</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="couponType"><span jhiTranslate="blanatApp.deal.couponType">Coupon Type</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="couponValue"><span jhiTranslate="blanatApp.deal.couponValue">Coupon Value</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="couponPercentage"><span jhiTranslate="blanatApp.deal.couponPercentage">Coupon Percentage</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dateStart"><span jhiTranslate="blanatApp.deal.dateStart">Date Start</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dateEnd"><span jhiTranslate="blanatApp.deal.dateEnd">Date End</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="datePublication"><span jhiTranslate="blanatApp.deal.datePublication">Date Publication</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="views"><span jhiTranslate="blanatApp.deal.views">Views</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="like"><span jhiTranslate="blanatApp.deal.like">Like</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dislike"><span jhiTranslate="blanatApp.deal.dislike">Dislike</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="local"><span jhiTranslate="blanatApp.deal.local">Local</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="statut"><span jhiTranslate="blanatApp.deal.statut">Statut</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="isDeleted"><span jhiTranslate="blanatApp.deal.isDeleted">Is Deleted</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="isBlocked"><span jhiTranslate="blanatApp.deal.isBlocked">Is Blocked</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dealLocationId"><span jhiTranslate="blanatApp.deal.dealLocation">Deal Location</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="assignedToId"><span jhiTranslate="blanatApp.deal.assignedTo">Assigned To</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-                <tr *ngFor="let deal of deals ;trackBy: trackId">
-                    <td><a [routerLink]="['/deal', deal.id, 'view']">{{ deal.id }}</a></td>
-                    <td>{{ deal.title }}</td>
-                    <td>{{ deal.description }}</td>
-                    <td jhiTranslate="{{ 'blanatApp.TypeDeal.' + deal.type }}">{{ deal.type }}</td>
-                    <td>{{ deal.url }}</td>
-                    <td>{{ deal.image }}</td>
-                    <td>{{ deal.price }}</td>
-                    <td>{{ deal.priceNormal }}</td>
-                    <td>{{ deal.priceShipping }}</td>
-                    <td>{{ deal.coupon }}</td>
-                    <td jhiTranslate="{{ 'blanatApp.TypeCoupon.' + deal.couponType }}">{{ deal.couponType }}</td>
-                    <td>{{ deal.couponValue }}</td>
-                    <td>{{ deal.couponPercentage }}</td>
-                    <td>{{ deal.dateStart | date:'mediumDate' }}</td>
-                    <td>{{ deal.dateEnd | date:'mediumDate' }}</td>
-                    <td>{{ deal.datePublication | date:'mediumDate' }}</td>
-                    <td>{{ deal.views }}</td>
-                    <td>{{ deal.like }}</td>
-                    <td>{{ deal.dislike }}</td>
-                    <td>{{ deal.local }}</td>
-                    <td jhiTranslate="{{ 'blanatApp.StatutDeal.' + deal.statut }}">{{ deal.statut }}</td>
-                    <td>{{ deal.isDeleted }}</td>
-                    <td>{{ deal.isBlocked }}</td>
-                    <td>
-                        <div *ngIf="deal.dealLocationId">
-                            <a [routerLink]="['/deal-location', deal.dealLocationId , 'view']" >{{ deal.dealLocationId }}</a>
+    <div class="container-fluid" id="entities" *ngIf="deals && deals.length > 0">
+        <div class="list-group">
+            <li class="list-group-item list-group-item-action flex-column items-start" 
+            *ngFor="let deal of deals">
+            <div class="row">
+                <div class="col align-self-center">
+                    <span class="hipster img-fluid rounded"></span>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="font-weight-bold">
                         </div>
-                    </td>
-                    <td>
-                        <div *ngIf="deal.assignedToId">
-                            <a [routerLink]="['/deal-user', deal.assignedToId , 'view']" >{{ deal.assignedToId }}</a>
+                        <div class="col-3">
+                            <h5><p class="text-warning">{{ deal.type }}</p></h5>
                         </div>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit"
-                                    [routerLink]="['/deal', deal.id, 'view']"
-                                    class="btn btn-info btn-sm">
-                                <fa-icon icon="eye"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
-
-                            <button type="submit"
-                                    [routerLink]="['/deal', deal.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-
-                            <button type="submit" (click)="delete(deal)"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
+                        <div class="col-3" *ngIf="deal.type=='DEAL'">
+                            {{ deal.price }}Dhs
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        <div class="col-3" *ngIf="deal.type=='COUPON' && deal.couponType=='PERCENTAGE'">
+                            {{ deal.couponPercentage }}%
+                        </div>
+                        <div class="col-3" *ngIf="deal.type=='COUPON' && deal.couponType=='DHS'">
+                            {{ deal.couponValue }}Dhs
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ deal.description | description}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-4"><fa-icon icon="eye"></fa-icon>{{ deal.views }}</div>
+                        <div class="col-4"><fa-icon icon="thumbs-up"></fa-icon>{{ deal.like }}</div>
+                        <div class="col-4"><fa-icon icon="thumbs-down"></fa-icon>{{ deal.dislike }}</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn" [ngClass]="{'btn-danger': deal.statut=='EXPIRED', 'btn-success': deal.statut=='ACTIVE', 'btn-warning': deal.statut=='HIDDEN', 'btn-dark': deal.statut=='PENDING'}" disabled>{{ deal.statut}}</button>
+                </div>
+                <div class="col">
+                    By: <a [routerLink]="['/deal-user', deal.assignedToId, 'view']" *ngIf="deal.assignedToId">{{ deal.assignedToId | userPipe}}</a>
+                </div>
+                <div class="col">
+                    Date: {{ deal.datePublication | date:'mediumDate' }}
+                </div>
+                <div class="col">
+                    <a [attr.href]="deal.url" class="btn btn-primary" role="button" target="_blank" aria-disabled="true">SEE</a>
+                </div>
+            </div>
+            </li>
+        </div>
     </div>
 </div>

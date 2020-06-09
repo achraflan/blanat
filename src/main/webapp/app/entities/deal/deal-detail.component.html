@@ -1,132 +1,61 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="deal">
-            <h2><span jhiTranslate="blanatApp.deal.detail.title">Deal</span> {{ deal.id }}</h2>
-
-            <hr>
-
-            <jhi-alert-error></jhi-alert-error>
-
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="blanatApp.deal.title">Title</span></dt>
-                <dd>
-                    <span>{{ deal.title }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.description">Description</span></dt>
-                <dd>
-                    <span>{{ deal.description }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.type">Type</span></dt>
-                <dd>
-                    <span jhiTranslate="{{ 'blanatApp.TypeDeal.' + deal.type }}">{{ deal.type }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.url">Url</span></dt>
-                <dd>
-                    <span>{{ deal.url }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.image">Image</span></dt>
-                <dd>
-                    <span>{{ deal.image }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.price">Price</span></dt>
-                <dd>
-                    <span>{{ deal.price }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.priceNormal">Price Normal</span></dt>
-                <dd>
-                    <span>{{ deal.priceNormal }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.priceShipping">Price Shipping</span></dt>
-                <dd>
-                    <span>{{ deal.priceShipping }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.coupon">Coupon</span></dt>
-                <dd>
-                    <span>{{ deal.coupon }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.couponType">Coupon Type</span></dt>
-                <dd>
-                    <span jhiTranslate="{{ 'blanatApp.TypeCoupon.' + deal.couponType }}">{{ deal.couponType }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.couponValue">Coupon Value</span></dt>
-                <dd>
-                    <span>{{ deal.couponValue }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.couponPercentage">Coupon Percentage</span></dt>
-                <dd>
-                    <span>{{ deal.couponPercentage }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.dateStart">Date Start</span></dt>
-                <dd>
-                    <span>{{ deal.dateStart }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.dateEnd">Date End</span></dt>
-                <dd>
-                    <span>{{ deal.dateEnd }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.datePublication">Date Publication</span></dt>
-                <dd>
-                    <span>{{ deal.datePublication }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.views">Views</span></dt>
-                <dd>
-                    <span>{{ deal.views }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.like">Like</span></dt>
-                <dd>
-                    <span>{{ deal.like }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.dislike">Dislike</span></dt>
-                <dd>
-                    <span>{{ deal.dislike }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.local">Local</span></dt>
-                <dd>
-                    <span>{{ deal.local }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.statut">Statut</span></dt>
-                <dd>
-                    <span jhiTranslate="{{ 'blanatApp.StatutDeal.' + deal.statut }}">{{ deal.statut }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.isDeleted">Is Deleted</span></dt>
-                <dd>
-                    <span>{{ deal.isDeleted }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.isBlocked">Is Blocked</span></dt>
-                <dd>
-                    <span>{{ deal.isBlocked }}</span>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.dealLocation">Deal Location</span></dt>
-                <dd>
-                    <div *ngIf="deal.dealLocationId">
-                        <a [routerLink]="['/deal-location', deal.dealLocationId, 'view']">{{ deal.dealLocationId }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.assignedTo">Assigned To</span></dt>
-                <dd>
-                    <div *ngIf="deal.assignedToId">
-                        <a [routerLink]="['/deal-user', deal.assignedToId, 'view']">{{ deal.assignedToId }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="blanatApp.deal.dealCategory">Deal Category</span></dt>
-                <dd>
-                    <span *ngFor="let dealCategory of deal.dealCategories; let last = last">
-                        <a [routerLink]="['/deal-category', dealCategory?.id, 'view']">{{ dealCategory.name }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/deal', deal.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-            </button>
+<div class="row justify-content-center" style="display: block;" *ngIf="deal">
+    <div class="card border-primary  mb-3">
+        <div class="card-header">
+            <div class="row">
+                <div class="col">
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info">
+                        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+                    </button>
+                </div>
+                <div class="col" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                    <button type="button"
+                            [routerLink]="['/deal', deal.id, 'edit']"
+                            class="btn btn-primary float-right">
+                            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+                </div>
+            </div>
         </div>
+        <div class="card-body">
+          <h3 class="card-title"><span jhiTranslate="blanatApp.deal.detail.title">Titre: </span> <span>{{ deal.title }}</span></h3>
+          <p class="card-text"><span jhiTranslate="blanatApp.deal.description">Description: </span> <span>{{ deal.description }}</span></p>
+        </div>
+      </div>
+</div>
+<div class="row">
+    <div class="col" *ngIf="deal">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+                <span jhiTranslate="blanatApp.deal.history">History</span>
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Dapibus ac facilisis in
+            </li>
+          </ul>
+    </div>
+    <div class="col">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+                <span jhiTranslate="blanatApp.deal.report">Report</span>
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Dapibus ac facilisis in
+            </li>
+          </ul>
+    </div>
+    <div class="col">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+                <span jhiTranslate="blanatApp.deal.track">Track</span>
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Dapibus ac facilisis in
+              </li>
+          </ul>
     </div>
 </div>

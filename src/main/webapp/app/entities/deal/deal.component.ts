@@ -2,17 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IDeal } from 'app/shared/model/deal.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { DealService } from './deal.service';
-import { DealDeleteDialogComponent } from './deal-delete-dialog.component';
+
 
 @Component({
   selector: 'jhi-deal',
   templateUrl: './deal.component.html',
+  styleUrls: ['deal.scss'],
 })
 export class DealComponent implements OnInit, OnDestroy {
   deals: IDeal[];
@@ -26,7 +26,6 @@ export class DealComponent implements OnInit, OnDestroy {
   constructor(
     protected dealService: DealService,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal,
     protected parseLinks: JhiParseLinks
   ) {
     this.deals = [];
@@ -78,11 +77,6 @@ export class DealComponent implements OnInit, OnDestroy {
 
   registerChangeInDeals(): void {
     this.eventSubscriber = this.eventManager.subscribe('dealListModification', () => this.reset());
-  }
-
-  delete(deal: IDeal): void {
-    const modalRef = this.modalService.open(DealDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.deal = deal;
   }
 
   sort(): string[] {
