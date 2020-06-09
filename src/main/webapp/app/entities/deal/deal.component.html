@@ -30,6 +30,7 @@
                     <div class="row">
                         <div class="col-6">
                             <p class="font-weight-bold">
+                                <a [routerLink]="['/deal', deal.id, 'view']">{{ deal.title }}</a></p>
                         </div>
                         <div class="col-3">
                             <h5><p class="text-warning">{{ deal.type }}</p></h5>
