@@ -8,7 +8,6 @@ import { IDeal } from 'app/shared/model/deal.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { DealService } from './deal.service';
 
-
 @Component({
   selector: 'jhi-deal',
   templateUrl: './deal.component.html',
@@ -23,11 +22,7 @@ export class DealComponent implements OnInit, OnDestroy {
   predicate: string;
   ascending: boolean;
 
-  constructor(
-    protected dealService: DealService,
-    protected eventManager: JhiEventManager,
-    protected parseLinks: JhiParseLinks
-  ) {
+  constructor(protected dealService: DealService, protected eventManager: JhiEventManager, protected parseLinks: JhiParseLinks) {
     this.deals = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;

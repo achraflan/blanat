@@ -10,8 +10,15 @@ import { UserNamePipe } from './pipe/userNamePipe';
 
 @NgModule({
   imports: [BlanatSharedLibsModule],
-  declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent,
-     LoginModalComponent, HasAnyAuthorityDirective, DescriptionPipe, UserNamePipe],
+  declarations: [
+    FindLanguageFromKeyPipe,
+    AlertComponent,
+    AlertErrorComponent,
+    LoginModalComponent,
+    HasAnyAuthorityDirective,
+    DescriptionPipe,
+    UserNamePipe,
+  ],
   entryComponents: [LoginModalComponent],
   exports: [
     BlanatSharedLibsModule,
