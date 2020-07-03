@@ -23,6 +23,8 @@ jobs:
             - name: Install node.js packages
               run: npm install
             - name: Run Server
-              run: sudo ./mvnw
+              run: |
+                  chmod +x mvnw
+                  ./mvnw
             - name: Run e2e test
               run: npm run e2e
