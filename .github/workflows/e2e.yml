@@ -27,4 +27,4 @@ jobs:
                   chmod +x mvnw
                   ./mvnw -Pprod clean verify
             - name: Run e2e test
-              run: npm run e2e
+              run: npm run e2e --browsers=ChromeHeadless
