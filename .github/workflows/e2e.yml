@@ -25,6 +25,6 @@ jobs:
             - name: Run Server
               run: |
                   chmod +x mvnw
-                  ./mvnw
+                  ./mvnw -Pprod clean verify
             - name: Run e2e test
               run: npm run e2e
